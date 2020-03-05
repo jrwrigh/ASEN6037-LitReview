@@ -171,7 +171,7 @@
 \RequirePackage{chemformula}
 
 % Bibliography
-\RequirePackage[backend = biber, giveninits]{biblatex}
+\RequirePackage[backend = biber, style=ieee, giveninits]{biblatex}
 \addbibresource{references.bib}
 % \nocite{*}
 
