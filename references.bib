@@ -36,3 +36,57 @@
   abstract = {The future use of eddy resolving simulations (ERS) such as Large Eddy Simulation (LES), Direct Numerical Simulation (DNS) and related approaches in aerospace is explored. The turbulence modeling requirements with respect to aeroengines and aircraft is contrasted. For the latter, higher Reynolds numbers are more prevalent and this especially gives rise to the need for the hybridization of ERS methods with Reynolds Averaged Navier-Stokes (RANS) approaches. Zones where future use of pure ERS methods is now possible and those where hybridizations with RANS will be needed is outlined. The major focus is the aeroengine for which the component scales are much smaller. This gives rise to generally more benign Reynolds numbers. The use of eddy resolving methods in a wide range of zones in an aeroengine is discussed and the potential benefits and also cost drawbacks with such approaches noted. The tension when using such computationally intensive calculations in an area where the coupling of components and even the airframe and engine is becoming increasingly important is explored. Also, the numerical methods and meshing requirements are considered and the implications of ERS methods for future numerical algorithms. It is postulated that such simulations are ready now for niche uses in industry. However, to perform the scale of simulations that industry requires, to meet pressing environmental needs, challenges remain. For example, there is the need to develop optimal numerical methods that both map to the accuracy requirements for ERS and also future computer architectures.},
   journal = {Applied Mathematics and Computation}
 }
+
+@inproceedings{SpalartP.R.JouW-H.StreletsM.Allamaras1997,
+  title = {Comments on the {{Feasibility}} of {{LES}} for {{Wings}}, and on a {{Hybrid RANS}}/{{LES Approach}}},
+  booktitle = {1st {{AFOSR Int}}. {{Conf}}. on {{DNS}}/{{LES}}},
+  author = {Spalart, P. R. and Jou, W-H. and Strelets, M. and Allamaras, S.R.},
+  editor = {Liu, Chaoqun and Liu, Zhining},
+  year = {1997},
+  pages = {137--147},
+  address = {{Ruston}},
+  abstract = {We size up the computing cost of a Large-Eddy Simulation (LES) for an airplane wing. Even with highly optimistic assumptions, the number of grid points is of the order of 10\^11 , and the number of time steps approaches 5 x 10\^6 . This is due to large areas of thin boundary layers near the leading edge. We assumed the need for only 20 grid points per boundary-layer thickness delta, in each direction, and unstructured adapted grids. We then formulate a simple strategy, based on a one-equation turbulence model, that addresses this difficulty. It reduces to Reynolds-Averaged Navier-Stokes (RANS) in the boundary layers and at separation, and to Smagorinsky-like LES downstream of separation. The intermediate region is not as well understood. The promise is to harness LES in separated regions that are very geometry-specific, while functioning with a manageable number of grid points. Preliminary exercises with what we call "Detached-Eddy Simulation" (DES) are shown. 1},
+}
+
+@inproceedings{Menter2002,
+  title = {Adaptation of {{Eddy}}-{{Viscosity Turbulence Models}} to {{Unsteady Separated Flow Behind Vehicles}}},
+  booktitle = {The {{Aerodynamics}} of {{Heavy Vehicles}}: {{Trucks}}, {{Buses}}, and {{Trains}}},
+  author = {Menter, F R and Kuntz, M},
+  editor = {McCallen, Rose and Browand, Fred and Ross, James},
+  year = {2002},
+  volume = {19},
+  pages = {339--352},
+  publisher = {{Springer, Berlin, Heidelberg}},
+  address = {{New York}},
+  doi = {10.1007/978-3-540-44419-0_30},
+  abstract = {Turbulence model development for aerodynamic applications has for many years concentrated on improving the capabilities of CFD methods for separation prediction. Validation studies of turbulence models in the `80th have clearly shown that most turbulence models were not capable of predicting the development of turbulent boundary layers under adverse pressure gradient conditions. Based on that observation, new models were developed to specifically meet this challenge, resulting in a series of models capable of capturing boundary layer separation in good agreement with experimental data (Johnson and King 1984, Menter 1993, Spalart and Allmaras 1994).},
+  isbn = {3-540-22088-7}
+}
+
+@article{Spalart2006,
+  title = {A New Version of Detached-Eddy Simulation, Resistant to Ambiguous Grid Densities},
+  author = {Spalart, P. R. and Deck, S. and Shur, M. L. and Squires, K. D. and Strelets, M. Kh. and Travin, A.},
+  year = {2006},
+  volume = {20},
+  pages = {181--195},
+  issn = {09354964},
+  doi = {10.1007/s00162-006-0015-0},
+  abstract = {Detached-eddy simulation (DES) is well understood in thin boundary layers, with the turbulence model in its Reynolds-averagedNavier\textendash{}Stokes (RANS) mode and flattened grid cells, and in regions of mas- sive separation, with the turbulence model in its large-eddysimulation (LES) mode and grid cells close to isotropic. However its initial formulation, denoted DES97 from here on, can exhibit an incorrect behavior in thick boundary layers and shallow separation regions. This behavior begins when the grid spacing parallel to the wall becomes less than the boundary-layer thickness {$\delta$}, either through grid refinement or bound- ary-layer thickening. The grid spacing is then fine enough for the DES length scale to follow the LES branch (and therefore lower the eddy viscosity below the RANS level), but resolved Reynolds stresses deriving from velocity fluctuations (``LES content'') have not replaced the modeled Reynolds stresses. LES content may be lacking because the resolution is not fine enough to fully support it, and/or because of delays in its generation by instabilities. The depleted stresses reduce the skin friction, which can lead to premature separation. For some research studies in small domains, is made much smaller than {$\delta$}, and LES content is generated intentionally. However for natural DES applications in useful domains, it is preferable to over-ride the DES limiter and maintain RANS behavior in boundary layers, independent of  relative to {$\delta$}. For this purpose, a newversion of the technique \textendash{} referred to as DDES, forDelayed DES \textendash{} is presentedwhich is based on a sim- ple modification to DES97, similar to one proposed by Menter and Kuntz for the shear\textendash{}stress transport (SST) model, but applicable to othermodels. Tests in boundary layers, on a single and amulti-element airfoil, a cylin- der, and a backward-facing step demonstrate thatRANSfunction is indeed maintained in thick boundary layers, without preventingLESfunction after massive separation. The newformulation better fulfills the intent ofDES. Two other issues are discussed: the use of DES as a wall model in LES of attached flows, in which the known log-layer mismatch is not resolved by DDES; and a correction that is helpful at low cell Reynolds numbers.},
+  journal = {Theoretical and Computational Fluid Dynamics},
+  keywords = {Detached-eddy simulation,HRLM,Separation,Turbulence},
+  number = {3}
+}
+
+@article{nikitinApproachWallModeling2000a,
+  title = {An Approach to Wall Modeling in Large-Eddy Simulations},
+  author = {Nikitin, N. V. and Nicoud, F. and Wasistho, B. and Squires, K. D. and Spalart, P. R.},
+  year = {2000},
+  month = jun,
+  volume = {12},
+  pages = {1629--1632},
+  issn = {1070-6631},
+  doi = {10.1063/1.870414},
+  journal = {Physics of Fluids},
+  keywords = {DES,WMLES},
+  number = {7}
+}
