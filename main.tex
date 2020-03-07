@@ -11,7 +11,7 @@
 \section{Introduction}
 This literature review will cover the content and background of \citetitle{shurHybridRANSLESApproach2008}\cite{shurHybridRANSLESApproach2008}. 
 
-\section{Summary of Prior Work}
+\section{Overview of Prior Work}
 This paper introduces a new hybrid RANS-LES turbulence model, later known as the improved delayed detached eddy simulations (IDDES). Before reviewing the paper, let's review the history of hybrid turbulence models in general.
 
 IDDES can trace it's main roots back to the seminal detached eddy simulation (DES)~\cite{SpalartP.R.JouW-H.StreletsM.Allamaras1997} model, first proposed by \citeauthor{SpalartP.R.JouW-H.StreletsM.Allamaras1997}. The concept and motivation of hybrid models is fairly simple. LES is very expensive (particularly near the wall) for high Re flows, while RANS is significantly cheaper but not reliably accurate for many types of flow problems. Hybrid models combine the two to exploit their strengths and cover up their weakness. In general, RANS is responsible for flow regions that are very expensive for LES (namely near the wall) and LES is responsible for regions where RANS is not adequate. This is visually shown in \cref{fig:HRLMS}, where the shaded regions represent the parts of the turbulent spectrum that are modeled.
