@@ -29,7 +29,7 @@ The transition between the two models is one of the primary achilles's heel of D
 There have been attempts to use DES as a wall-modeled LES (WMLES), where RANS is used for modeling turbulence in a thin region within the boundary layer. However, at the transition between the RANS and LES regions, there exists what is known as the log-layer mismatch, referring to the log-layer of the boundary layer. The the issue is that while both RANS and LES both accurately predict the logarithmic relationship between \(u^+\) and \(y^+\), they predict them at different magnitudes. Thus, at the boundary between then, the velocity profile transitions from the log relationship predicted by RANS to the one predicted by LES.
 
 \section{Work Summary}
-This work introduces a new hybrid RANS-LES turbulence model, which was later dubbed improved delayed detached eddy simulation (IDDES). This model builds on previous work on hybrid turbulence models by introducing a new function that allows the model to enter a wall-modeled LES mode.
+This work introduces a new hybrid RANS-LES turbulence model dubbed the improved delayed detached eddy simulation (IDDES). The goal of the model is to allow for WMLES and standard DDES operation in the same model. Additionally, it aims to resolve the log-layer mismatch seen in other applications of DES-esque models for WMLES.
 
 \ucbbib{}
     
