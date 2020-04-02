@@ -145,7 +145,7 @@
 
 % Math
 \RequirePackage{mathtools}
-% \RequirePackage{amsmath}
+\RequirePackage{amsmath}
 \RequirePackage{nicefrac}
 \RequirePackage{bm}
 \RequirePackage{commath}
