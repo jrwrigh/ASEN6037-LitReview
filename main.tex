@@ -30,6 +30,25 @@ There have been attempts to use DES as a wall-modeled LES (WMLES), where RANS is
 
 \section{Work Summary}
 This work introduces a new hybrid RANS-LES turbulence model dubbed the improved delayed detached eddy simulation (IDDES). The goal of the model is to allow for WMLES and standard DDES operation in the same model. Additionally, it aims to resolve the log-layer mismatch seen in other applications of DES-esque models for WMLES.
+%TODO Add sentence regarding things to be reviewed. ie:
+% To achieve this, a new subgrid length-scale was developed, in addition to the chagnes to the model euqations themselves.
+
+\subsection{Subgrid Length-Scale}
+The first major part introduced in the paper is a new definition for the subgrid length-scale, \(\Delta \). Traditionally, this is approximated by either the cube root of the element/cell volume or by the maximum of three element/cell spacings. Most SGS models use \(\Delta \) as a significant input to their calculation. However, the problem with either of these definitions is that the model coefficients for SGS model in near-wall flows is significantly different for free stream flows. Ideally, the SGS model coefficients should constant regardless of their location in the flow. To achieve this, \citeauthor{shurHybridRANSLESApproach2008} created a new definition of \(\Delta \) that used wall distance as an input. Far from the wall, \(\Delta \) should be equal to the maximum of the element/cell spacing. Close to the wall, \(\Delta \) should be made some function of the wall-parallel spacings. Ignoring the wall-normal spacing is done to avoid the sharp changes in the wall-normal spacing common with meshes close to the wall. To transition between these two extremes, it is assumed that \(\Delta \) is a linear function of wall distance. Lastly, it is also noted that \(\Delta \) should be constrained to be between the minimum and maximum wall spacings. The end result is
+
+\begin{equation}\label{eq:delta}
+    \Delta = \min \left \{ 
+        \max \left \{ C_w d_w, C_w h_{\max}, h_{wn}\right \} 
+        , h_{\max} \right \}
+\end{equation}
+
+%TODO define these variables or use them in the above paragraph
+where \(C_w\) is a constant, which was found to be 0.15. 
+The two features of the above definition are that \(\Delta \) is reduced in the near-wall region and transitions to the "free-stream" value quickly. 
+
+%TODO come back and add the actual results
+
+
 
 \ucbbib{}
     
