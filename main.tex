@@ -39,7 +39,7 @@ The implementation of DES and DDES methods are based on an underlying RANS model
     - f_d \max \left \{ 0, \left(\ell_\RANS - \ell_\LES \right) \right\}
 \end{equation}
 
-where \(f_d \) is a delaying function that controls where the transition occurs, and \(\ell_\LES \) and \(\ell_\RANS \) are the computed length scales need for ``pure'' LES and RANS mode respectively.
+where \(f_d \) is a delaying function that controls where the transition occurs, and \(\ell_\LES \) and \(\ell_\RANS \) are the computed length scales need for ``pure'' LES and RANS mode respectively. \(f_d \) uses the sum of molecular \(\nu \) and eddy \(\nu_t \) viscosities as an input. This will be an important detail in the discussion of IDDES.
 
 There have been attempts to use DES as a wall-modeled LES (WMLES), where RANS is used for modeling turbulence in a thin region within the boundary layer. However, at the transition between the RANS and LES regions, there exists what is known as the log-layer mismatch, referring to the log-law portion of the boundary layer. The issue is that while both RANS and LES both accurately predict the logarithmic relationship between \(u^+\) and \(y^+\), they predict them at different magnitudes. Thus, at the boundary between then, the velocity profile must transition from the log-law relationship predicted by RANS to the one predicted by LES.
 
@@ -49,17 +49,15 @@ This work introduces a new hybrid RANS-LES turbulence model dubbed the improved 
 % To achieve this, a new subgrid length-scale was developed, in addition to the chagnes to the model euqations themselves.
 
 \subsection{Subgrid Length-Scale}
-The first major part introduced in the paper is a new definition for the subgrid length-scale, \(\Delta \). Traditionally, this is approximated by either the cube root of the element/cell volume or by the maximum of three element/cell spacings. Most SGS models use \(\Delta \) as a significant input to their calculation. However, the problem with either of these definitions is that the model coefficients for SGS model in near-wall flows is significantly different for free stream flows. Ideally, the SGS model coefficients should constant regardless of their location in the flow. To achieve this, \citeauthor{shurHybridRANSLESApproach2008} created a new definition of \(\Delta \) that used wall distance as an input. Far from the wall, \(\Delta \) should be equal to the maximum of the element/cell spacing. Close to the wall, \(\Delta \) should be made some function of the wall-parallel spacings. Ignoring the wall-normal spacing is done to avoid the sharp changes in the wall-normal spacing common with meshes close to the wall. To transition between these two extremes, it is assumed that \(\Delta \) is a linear function of wall distance. Lastly, it is also noted that \(\Delta \) should be constrained to be between the minimum and maximum wall spacings. The end result is
+The first major part introduced in the paper is a new definition for the subgrid length-scale, \(\Delta \). Traditionally, this is approximated by either the cube root of the element/cell volume or by the maximum of three element/cell spacings, \(h_{\max} \). Most SGS models use \(\Delta \) as a significant input to their calculation. However, the problem with either of these definitions is that the model coefficients for SGS model in near-wall flows is significantly different for free stream flows. Ideally, the SGS model coefficients should constant regardless of their location in the flow. To achieve this, \citeauthor{shurHybridRANSLESApproach2008} created a new definition of \(\Delta \) that used wall distance, \(d_w \), as an input. Far from the wall, \(\Delta \) should be equal to \( h_{\max} \). Close to the wall, \(\Delta \) should be made some function of the wall-parallel spacings. Ignoring the wall-normal spacing is done to avoid the sharp changes in the wall-normal spacing common with meshes close to the wall. To transition between these two extremes, it is assumed that \(\Delta \) is a linear function of \(d_w \). Lastly, it is also noted that \(\Delta \) should be constrained to be between the minimum and maximum wall spacings. The end result is
 
 \begin{equation}\label{eq:delta}
     \Delta = \min \left \{ 
         \max \left \{ C_w d_w, C_w h_{\max}, h_{wn}\right \} 
         , h_{\max} \right \}
 \end{equation}
-
-%TODO define these variables or use them in the above paragraph
-where \(C_w\) is a constant, which was found to be 0.15. 
-The two features of the above definition are that \(\Delta \) is reduced in the near-wall region and transitions to the "free-stream" value quickly. 
+where \(C_w\) is a constant, which was found to be 0.15, and \(h_{wn} \) is the wall-normal grid spacing. The latter argument of the min function gives the behavior far from the wall while the max function (within the min function) gives the behavior near the wall.
+The two features of the above definition are that \(\Delta \) is reduced in the near-wall region and transitions to the ``free-stream'' value quickly. 
 
 %TODO come back and add the actual results
 
@@ -72,18 +70,24 @@ The length-scale for the WMLES mode is give by:
 \end{equation}
 
 \(f_B \) is the primary determinant of where the RANS (\(f_B =1\)) to LES (\(f_B = 0\)) transition occurs and is a function of \(d_w / h_{\max} \).
-The elevating function \(f_e \) is present to ensure that the RANS stresses are not disposed of prematurely when transitioning to LES mode. According to \citeauthor{shurHybridRANSLESApproach2008}, \(f_e \) ``is instrumental in combating log-layer mismatch'' \cite{shurHybridRANSLESApproach2008} \(f_e \) should equal to 0 (thereby leaving \(\ell_\RANS \) present in the calculation of \(\ell_\WMLES \) as the dominant term) when the grid is not sufficient to resolve the dominant wall-eddies of the flow \textit{and} when the pure RANS mode is desired. In the cases where \(f_e \) is not zero, it may be larger than 1, where it can compensate for \(f_B \) decreasing too close to the wall.
+The elevating function \(f_e \), unlike \(f_d \) or \(f_B \), can actually take values greater than one, and thus increase (ie. ``elevate'') the value of \(\ell_\RANS \). It is present to ensure that the RANS stresses are not disposed of prematurely when transitioning to LES mode. According to \citeauthor{shurHybridRANSLESApproach2008}, \(f_e \) ``is instrumental in combating log-layer mismatch'' \cite{shurHybridRANSLESApproach2008} \(f_e \) should equal to 0 (thereby leaving \(\ell_\RANS \) present in the calculation of \(\ell_\WMLES \) as the dominant term) when the grid is not sufficient to resolve the dominant wall-eddies of the flow \textit{and} when the pure RANS mode is desired. In the cases where \(f_e \) is not zero, it may be larger than 1, where it can compensate for \(f_B \) decreasing too close to the wall.
 
-To blend between the two IDDES modes, 
+These two separate modes are combined in the following way. First, \(f_d \) is redefined slightly differently
 
 
 
 %* Problems with the model: See the Riccardo ZDES paper
 
 \section{Potential Issues}
-One of the immediate potential issues I see is the grid dependence of \(f_B \) and \(f_e \) in the WMLES mode of IDDES. Their dependence on grid size leads back to the exact issues with the original DES and 
-    
-Conversely, I don't see any significant issues with the grid dependence of \(\Delta \) as it is inherently grid dependent due to the relationship between the implicit LES filter width and the grid size. 
+One of the immediate potential issues I see is the grid dependence of \(f_B \) and \(f_e \) in the WMLES mode of IDDES. Their dependence on grid size leads back to the exact issues with the original DES and modeled stress depletion. At the end of the day, these functions are meant to determine where the the log-layer ends and to start using WMLES at that location. The wall distance location of the log-layer is not inherently a grid dependent quantity and thus, in my opinion, functions attempting to model that distance should not be a function of any grid parameters. That being said, I'm sure this is an issue the authors are quite aware of and this model is a result of a multitude of compromises.
+
+Additionally, the usage of \(\nu_t \) in the determination of where the transition should occur may be problematic. In fact thsi was discovered later on.
+% cite entropy papers "Towards an entropy-based detached-eddy simulation
+
+% Conversely, I don't see any significant issues with the grid dependence of \(\Delta \) as it is inherently grid dependent due to the relationship between the implicit LES filter width and the grid size. 
+
+\section{New Questions}
+The obvious question coming from both my comments on potential issues and the proceeding literature is whether there is a better way to determine the transition locations for RANS-LES hybrid models, be them in a traditional DES or WMLES sense.
 
 \ucbbib{}
     
