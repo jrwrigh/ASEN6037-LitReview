@@ -107,6 +107,7 @@ One of the immediate potential issues I see is the grid dependence of \(f_B \) a
 
 Another major caveat to IDDES is that, for adverse pressure gradient induced stall, it is still reliant on RANS for the prediction of flow separation. While this is far from terrible, it's also not ideal either, as the RANS is not a great predictor of these regions. 
 In particular, RANS is poor in rapid changes in pressure gradients, such as at the leading edge of an airfoil or a bump. 
+When acting in WMLES mode, these issues are less significant as only the inner layer of the boundary layer is being handled by RANS. However, there may still be issues present with it's implementation. 
 
 % Additionally, the usage of \(\nu_t \) in the determination of where the transition should occur may be problematic. In fact this was discovered later on.
 % cite entropy papers "Towards an entropy-based detached-eddy simulation
