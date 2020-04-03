@@ -105,7 +105,10 @@ The IDDES model presented in this work represents as significant step forward in
 \section{Potential Issues}
 One of the immediate potential issues I see is the grid dependence of \(f_B \) and \(f_e \) in the WMLES mode of IDDES. Their dependence on grid size leads back to the exact issues with the original DES and modeled stress depletion. At the end of the day, these functions are meant to determine where the the log-layer ends and to start using WMLES at that location. The wall distance location of the log-layer is not inherently a grid dependent quantity and thus, in my opinion, functions attempting to model that distance should not be a function of any grid parameters. That being said, I'm sure this is an issue the authors are quite aware of and this model is a result of a multitude of compromises.
 
-Additionally, the usage of \(\nu_t \) in the determination of where the transition should occur may be problematic. In fact this was discovered later on.
+Another major caveat to IDDES is that, for adverse pressure gradient induced stall, it is still reliant on RANS for the prediction of flow separation. While this is far from terrible, it's also not ideal either, as the RANS is not a great predictor of these regions. 
+In particular, RANS is poor in rapid changes in pressure gradients, such as at the leading edge of an airfoil or a bump. 
+
+% Additionally, the usage of \(\nu_t \) in the determination of where the transition should occur may be problematic. In fact this was discovered later on.
 % cite entropy papers "Towards an entropy-based detached-eddy simulation
 
 % Conversely, I don't see any significant issues with the grid dependence of \(\Delta \) as it is inherently grid dependent due to the relationship between the implicit LES filter width and the grid size. 
