@@ -117,6 +117,8 @@ When acting in WMLES mode, these issues are less significant as only the inner l
 \section{New Questions}
 The obvious question coming from both my comments on potential issues and the proceeding literature is whether there is a better way to determine the transition locations for RANS-LES hybrid models, be them in a traditional DES or WMLES sense.
 
+Despite being named and classified differently, the basis of IDDES is still some underlying RANS model. This does bring up the question of whether there might be better underlying model alternatives if a users desire is to only run in WMLES (similar to what was done with the channel flow validation cases). 
+The underlying RANS models used are (from what I can tell) unchanged from their normal counterparts. While this is necessary if DDES mode is desired (as the RANS model will have to act on the free stream velocities), WMLES usage may see benefits from changes. At the absolute minimum, most of the model coefficients for the RANS models are deduced from using RANS as the full flow field model. I'd be interested to see if any improvements could be made to WMLES mode (either in the RANS inner layer or the LES outer layer) by recalibrating these model coefficients
 \ucbbib{}
     
 \end{document}
