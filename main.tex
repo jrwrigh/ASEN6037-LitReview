@@ -114,6 +114,14 @@ When acting in WMLES mode, these issues are less significant as only the inner l
 
 % Conversely, I don't see any significant issues with the grid dependence of \(\Delta \) as it is inherently grid dependent due to the relationship between the implicit LES filter width and the grid size. 
 
+\section{Influence}
+The IDDES model has become a very popular model in literature, with over 1,000 citations to the paper according to Google Scholar. It has been the subject of many validation papers and is used as a comparison/benchmark for many new turbulence models in the LES, WMLES, and hybrid RANS-LES model space. 
+
+The IDDES model hasn't be convincingly surpassed in terms of capabilities and performance, but there are several models that have come as a potential alternatives or successors, such as zonal-detached eddy simulation (ZDES)~\cite{deckRecentImprovementsZonal2012} and stress blended eddy simulation (SBES)~\cite{Menter2018}. ZDES, as the name would suggest, takes a zonal approach to the hybrid model concept, through it does include modes analogous to DDES and IDDES. SBES is more explicitly capable of WMLES and also has the unique capability to use different turbulence models for it's RANS and LES modes, allowing the use of a ``proper'' SGS model for the LES instead of a altered RANS model. However, the adoption and study of the SBES method is handicapped by its proprietary nature.
+
+The most interesting idea (in my opinion) that comes as a result of the IDDES model is the proposition for an attached and detached eddy simulation (ADES)~\cite{spalartAttachedDetatchedEddy2018}. As a concept, ADES would be a melding of RANS and WMLES in a DES like fashion. In essence, the flow field would be in a RANS mode until before an area of the flow field that may contain separation. Upstream of the potential separation, the model would transition to a WMLES mode. This would have the benefit of maintaining the computational cheapness of RANS for a majority of the flow field while also allowing WMLES (as opposed to RANS like in DES/DDES) to handle the regions where RANS is very poor (predicting boundary layer separation). Early demonstrations of what this model would look like use the IDDES model in a zonal form, where the transition from RANS to WMLES occurs as a planar STG boundary condition. 
+To do an ADES simulation in a non-zonal form, resolved turbulence would need to be generated from the RANS mode variables at an arbitrary location in space. This might be done using a volumetric synthetic turbulence generation method (VSTG)~\cite{shurImprovedEmbeddedApproaches2018}.
+
 \section{New Questions}
 The obvious question coming from both my comments on potential issues and the proceeding literature is whether there is a better way to determine the transition locations for RANS-LES hybrid models, be them in a traditional DES or WMLES sense.
 
